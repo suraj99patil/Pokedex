@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchPokemon, fetchPokemonList, setPokemonName, setSearchError } from '../redux/actions';
 
 const SearchPage = () => {
@@ -7,6 +8,7 @@ const SearchPage = () => {
   const loading = useSelector(state => state.loading);
   const error = useSelector(state => state.error);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSearch = () => {
     if (pokemonName) {
@@ -15,6 +17,7 @@ const SearchPage = () => {
           if (response.success) {
             dispatch(fetchPokemonList());
             dispatch(setSearchError(''));
+            navigate('/listing'); // Navigate to the ListingPage
           } else {
             dispatch(setSearchError('Pokemon not found'));
           }
