@@ -8,10 +8,13 @@ const PokemonInfo = () => {
     return null; // Render nothing if no Pokemon data is available
   }
 
+  // Get the Dream World image URL
+  const imageUrl = `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokemon.id}.svg`;
+
   return (
     <div>
       <h2>{pokemon.name}</h2>
-      <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+      <img src={imageUrl} alt={pokemon.name} />
       <p>Height: {pokemon.height}</p>
       <p>Weight: {pokemon.weight}</p>
     </div>

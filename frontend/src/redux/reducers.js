@@ -42,11 +42,21 @@ const pokemonNameReducer = (state = '', action) => {
   }
 };
 
+const pokemonListReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_POKEMON_LIST':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   loading: loadingReducer,
   error: errorReducer,
   pokemon: pokemonReducer,
-  pokemonName: pokemonNameReducer, // Add the pokemonName reducer
+  pokemonName: pokemonNameReducer,
+  pokemonList: pokemonListReducer,
 });
 
 export default rootReducer;

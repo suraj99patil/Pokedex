@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPokemon, setPokemonName } from '../actions';
+import { fetchPokemon, setPokemonName } from '../redux/actions';
 
 const SearchPage = () => {
   const pokemonName = useSelector(state => state.pokemonName);
@@ -9,7 +9,7 @@ const SearchPage = () => {
   const dispatch = useDispatch();
 
   const handleSearch = () => {
-    dispatch(fetchPokemon(pokemonName));
+    dispatch(fetchPokemon(pokemonName && pokemonName.toLowerCase()));
   };
 
   return (

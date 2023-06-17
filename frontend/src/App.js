@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import SearchPage from './components/SearchPage';
 import PokemonInfo from './components/PokemonInfo';
+import ListingPage from './components/ListingPage';
 import store from './redux/store';
 
 const App = () => {
@@ -10,7 +11,8 @@ const App = () => {
       <div>
         <h1>Pokemon Search</h1>
         <SearchPage />
-        <PokemonInfo />
+        {<PokemonInfo />}
+        {<ListingPage />}
       </div>
     </Provider>
   );
