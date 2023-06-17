@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPokemon, setPokemonName } from '../redux/actions';
+import { fetchPokemon, fetchPokemonList, setPokemonName, setSearchError } from '../redux/actions';
 
 const SearchPage = () => {
   const pokemonName = useSelector(state => state.pokemonName);
@@ -9,7 +9,23 @@ const SearchPage = () => {
   const dispatch = useDispatch();
 
   const handleSearch = () => {
-    dispatch(fetchPokemon(pokemonName && pokemonName.toLowerCase()));
+    if (pokemonName) {
+      dispatch(fetchPokemon(pokemonName.toLowerCase()))
+        .then(response => {
+          if (response.success) {
+            dispatch(fetchPokemonList());
+            dispatch(setSearchError(''));
+          } else {
+            dispatch(setSearchError('Pokemon not found'));
+          }
+        })
+        .catch(error => {
+          dispatch(setSearchError('Error occurred during search'));
+          console.error('Search API error:', error);
+        });
+    } else {
+      dispatch(setSearchError('Please enter a Pokemon name'));
+    }
   };
 
   return (

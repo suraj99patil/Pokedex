@@ -54,11 +54,12 @@ export const fetchPokemon = (pokemonName) => {
   return (dispatch) => {
     dispatch(setSearchLoading());
 
-    axios
+    return axios
       .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
       .then((response) => {
         const pokemon = response.data;
         dispatch(setSearchSuccess(pokemon));
+        return { success: true };
       })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -66,6 +67,7 @@ export const fetchPokemon = (pokemonName) => {
         } else {
           dispatch(setSearchError('An error occurred'));
         }
+        return { success: false };
       });
   };
 };

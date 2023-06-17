@@ -1,14 +1,8 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPokemonList } from '../redux/actions';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 const ListingPage = () => {
-  const dispatch = useDispatch();
   const pokemonList = useSelector(state => state.pokemonList);
-
-  useEffect(() => {
-    dispatch(fetchPokemonList());
-  }, [dispatch]);
 
   if (!pokemonList) {
     return <p>Loading...</p>;
