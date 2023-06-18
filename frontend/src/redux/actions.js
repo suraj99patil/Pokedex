@@ -34,16 +34,31 @@ export const setPokemonList = (pokemonList) => {
   };
 };
 
+export const appendPokemonList = (pokemonList) => {
+  return {
+    type: 'APPEND_POKEMON_LIST',
+    payload: pokemonList,
+  };
+};
+
 export const fetchPokemonList = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
-      const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=10');
+      const state = getState();
+      const offset = state.pokemonList.length; // Get the current length of the pokemonList array
+      const limit = 10; // Define the number of Pokemon to fetch per request
+
+      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
       const { results } = response.data;
       const pokemonDetailsPromises = results.map((pokemon) => axios.get(pokemon.url));
       const pokemonDetailsResponses = await Promise.all(pokemonDetailsPromises);
       const pokemonList = pokemonDetailsResponses.map((response) => response.data);
 
-      dispatch(setPokemonList(pokemonList));
+      if (offset === 0) {
+        dispatch(setPokemonList(pokemonList));
+      } else {
+        dispatch(appendPokemonList(pokemonList));
+      }
     } catch (error) {
       console.error('Error fetching Pokemon list:', error);
     }

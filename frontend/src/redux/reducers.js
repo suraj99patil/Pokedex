@@ -46,10 +46,13 @@ const pokemonListReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_POKEMON_LIST':
       return action.payload;
+    case 'APPEND_POKEMON_LIST':
+      return [...state, ...action.payload]; // Append the new Pokemon to the existing list
     default:
       return state;
   }
 };
+
 
 const rootReducer = combineReducers({
   loading: loadingReducer,
