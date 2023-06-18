@@ -37,7 +37,7 @@ export const setPokemonList = (pokemonList) => {
 export const fetchPokemonList = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=20');
+      const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=10');
       const { results } = response.data;
       const pokemonDetailsPromises = results.map((pokemon) => axios.get(pokemon.url));
       const pokemonDetailsResponses = await Promise.all(pokemonDetailsPromises);
